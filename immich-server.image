@@ -1,6 +1,7 @@
 [Unit]
+Description=Image details for Immich server container
 Wants=nss-lookup.target network-online.target
 After=nss-lookup.target network-online.target
 
 [Image]
-Image=ghcr.io/immich-app/immich-server:v1.134.0
+Image=ghcr.io/immich-app/immich-server:release

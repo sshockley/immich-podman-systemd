@@ -1,0 +1,9 @@
+[Unit]
+Description=immich-network
+
+[Network]
+#NetworkName=immichnet
+Subnet=100.64.2.0/24
+Driver=bridge
+#IPAMDriver=dhcp
+

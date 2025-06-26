@@ -1,4 +1,5 @@
 [Unit]
+Description=Immich web and application server
 Requires=immich-redis.service immich-database.service 
 After=immich-redis.service immich-database.service 
 
@@ -6,13 +7,11 @@ After=immich-redis.service immich-database.service
 Pod=immich.pod
 ContainerName=immich_server
 EnvironmentFile=immich.env
-
 Image=immich-server.image
-
 # If localtime is not set (e.g. Fedora CoreOS) : 
 # Volume=/usr/share/zoneinfo/Europe/Paris:/etc/localtime:ro
 Volume=/etc/localtime:/etc/localtime:ro
-
+Network=systemd-immichnet
 HealthCmd=["/bin/bash", "immich-healthcheck"]
 HealthStartPeriod=3m
 HealthInterval=10s

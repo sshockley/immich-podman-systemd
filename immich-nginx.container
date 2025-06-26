@@ -1,0 +1,25 @@
+[Unit]
+Description=Immich nginx reverse proxy
+Requires=immich-server.service
+After=immich-server.service
+
+[Container]
+Pod=immich.pod
+ContainerName=immich_nginx
+Image=docker.io/library/nginx:latest
+Volume=/app/immich-podman-systemd/nginx/conf:/etc/nginx:Z,ro
+Volume=/app/immich-podman-systemd/nginx/log:/var/log:z
+Volume=/app/immich-podman-systemd/nginx/data/www:/srv:z,ro
+Volume=/app/immich-podman-systemd/letsencrypt/data/letsencrypt:/letsencrypt:z,ro
+Network=systemd-immichnet
+PublishPort=80:80
+PublishPort=443:443
+HealthCmd=["/bin/bash", "-c", "curl --fail http://localhost/ || exit 1"]
+HealthStartPeriod=30s
+HealthInterval=10s
+HealthTimeout=5s
+HealthRetries=5
+Notify=healthy
+
+[Service]
+Restart=always

@@ -1,3 +1,6 @@
+[Unit]
+Description=Immich postgresql database server
+
 [Container]
 Pod=immich.pod
 ContainerName=immich_postgres
@@ -7,6 +10,7 @@ Image=ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0@sha256:fa4f
 Volume=./immich-database-healthcheck:/health.sh:z
 # If you want to use the unit provided in `database_backup`
 # Volume=/path/to/db/backups:/var/db_backup/:z
+Network=systemd-immichnet
 HealthCmd=["/bin/bash", "/health.sh"]
 HealthStartPeriod=5m
 HealthInterval=30s
